@@ -2,8 +2,6 @@ FROM ubuntu:groovy
 ARG TARGETARCH
 ARG DEBIAN_FRONTEND="noninteractive"
 ARG CABAL_VERSION=3.2.0.0
-ARG GHC_VERSION=8.10.2
-ARG NODE_VERSION=1.25.1
 ARG JOBS="-j1"
 # export TARGETARCH=arm64 DEBIAN_FRONTEND="noninteractive" CABAL_VERSION=3.2.0.0 GHC_VERSION=8.10.2 NODE_VERSION=1.25.1 JOBS="-j2"
 
@@ -17,7 +15,7 @@ RUN sed -i -e "s/^\# deb-src/deb-src/g" /etc/apt/sources.list \
     linux-tools-generic xutils-dev
 
 #Install target cabal
-# RUN cabal update \
-#   && cabal install ${JOBS} cabal-install-${CABAL_VERSION} --constraint="lukko -ofd-locking" \
-#   && dpkg --purge cabal-install
+RUN cabal update \
+  && cabal install ${JOBS} cabal-install-${CABAL_VERSION} --constraint="lukko -ofd-locking" \
+  && dpkg --purge cabal-install
 
