@@ -16,7 +16,8 @@ It is based in ubuntu focal builder in a documented and formal way (supply chain
 
 Access to the multi-platform docker [image](https://hub.docker.com/r/juampe/base-cabal).
 Access to the Git [repository](https://github.com/juampe/base-cabal)
-
+# Minimize supply chain attack. 🔗
+You can supervise all the sources, all the build steps, build yourserlf.
 # Multi-platform image 👪
 Supported platforms:
 
