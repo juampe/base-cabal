@@ -11,7 +11,7 @@ cache:
 
 %64: cache
 	$(eval CNAME := $(DOCKER_TAG):$(CABAL_VERSION)-$@)
-	echo docker buildx build $(BUILDX_CACHE) --platform linux/$@ --build-arg CABAL_VERSION=$(CABAL_VERSION) -t $(CNAME) --push .
+	docker buildx build $(BUILDX_CACHE) --platform linux/$@ --build-arg CABAL_VERSION=$(CABAL_VERSION) -t $(CNAME) --push .
 	docker run --rm $(CNAME) bash -c 'cat /cabal/_build/artifacts/cabal-install*.tar.xz' > repo/cabal-install-$(CABAL_VERSION)-$@-ubuntu-21.04-bootstrapped.tar.xz
 
 
