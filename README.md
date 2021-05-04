@@ -14,7 +14,7 @@
 </p>
 <!-- markdownlint-enable MD033 -->
 
-# Cabal docker container to build cardano. 🐳
+# Cabal artifacts container generated to build cardano. 🐳
 Cardano docker is can now be supported as container a in Raspberri Pi or AWS Gravitron container platform.
 It is based in ubuntu focal builder in a documented and formal way (supply chain review).
 
@@ -79,7 +79,7 @@ cd base-cabal
 
 #Adapt Makefile to DOCKER_TAG to tag and fit your own docker registry
 make
-#Artifact goes to repo directory
+#Artifact goes to repo directory and it is avalibale via github to next step
 ```
 
 # Enjoy!🍿
