@@ -46,8 +46,9 @@ We planned to made in 3 phases:
  * Build with arm64v8 Gravitron
 
 # Build your own container. 🏗️
-From a ubuntu:groovy prepare for docker buildx multiarch environment
+From a x64 ubuntu:groovy prepare for docker buildx multiarch environment
 ```
+#Dependencies
 apt-get update
 apt-get -y install apt-transport-https ca-certificates curl gnupg lsb-release
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
@@ -57,12 +58,22 @@ apt-get -y install qemu binfmt-support qemu-user-static docker-ce byobu make
 
 export DOCKER_CLI_EXPERIMENTAL=enabled
 
-docker run --rm --privileged docker/binfmt:820fdd95a9972a5308930a2bdfb8573dd4447ad3
+#Make buildx
+mkdir -p ~/.docker/cli-plugins/
+DOCKER_BUILDKIT=1 docker build --platform=local -o . git://github.com/docker/buildx
+mv buildx ~/.docker/cli-plugins/docker-buildx
+chmod a+x ~/.docker/cli-plugins/docker-buildx
+          
+#only work in x64
+#docker run --rm --privileged docker/binfmt:820fdd95a9972a5308930a2bdfb8573dd4447ad3
+
+#make multi-arch builder
 docker buildx create --name builder
 docker buildx use builder
 docker buildx inspect --bootstrap
 docker buildx ls
 
+#Build the artifact
 git clone https://github.com/juampe/base-cabal.git
 cd base-cabal
 

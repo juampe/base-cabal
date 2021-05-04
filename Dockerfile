@@ -12,11 +12,6 @@ RUN sed -i -e "s/^\# deb-src/deb-src/g" /etc/apt/sources.list \
     pkg-config ghc libffi-dev libgmp-dev libssl-dev libtinfo-dev libsystemd-dev zlib1g-dev libgmp-dev libncurses-dev libgmp3-dev \ 
   && apt-get -y clean
 
-#libffi-dev libgmp-dev libssl-dev libtinfo-dev libsystemd-dev zlib1g-dev make g++ tmux git jq wget libncursesw5 libtool \
-#    autoconf cabal-install cabal-debian ghc llvm-11-dev clang-11 python3 libgmp-dev libncurses-dev libgmp3-dev happy alex \
-#    python3-sphinx texlive-xetex texlive-fonts-recommended fonts-lmodern texlive-latex-recommended texlive-latex-extra \
-#    linux-tools-generic xutils-dev \
-
 #Install target cabal
 
 RUN git clone https://github.com/haskell/cabal.git /cabal \
