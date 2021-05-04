@@ -68,6 +68,7 @@ cd base-cabal
 
 #Adapt Makefile to DOCKER_TAG to tag and fit your own docker registry
 make
+#Artifact goes to repo directory
 ```
 
 # Enjoy!🍿
