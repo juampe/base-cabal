@@ -15,14 +15,14 @@
 <!-- markdownlint-enable MD033 -->
 
 # Cabal artifacts container generated to build cardano. 🐳
-Cardano docker is can now be supported as container a in Raspberri Pi or AWS Gravitron container platform.
+Cardano docker is can now be supported as container a in Raspberry Pi or AWS Gravitron container platform.
 It is based in ubuntu focal builder in a documented and formal way (supply chain review).
 
 Access to the multi-platform docker [image](https://hub.docker.com/r/juampe/base-cabal).
 
 Access to the Git [repository](https://github.com/juampe/base-cabal)
 # Minimize supply chain attack. 🔗
-You can supervise all the sources, all the build steps, build yourserlf.
+You can supervise all the sources, all the build steps, build yourself.
 # Multi-platform 64 bit image 👪
 Supported platforms:
 
