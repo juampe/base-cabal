@@ -1,20 +1,19 @@
+.PHONY : archs all
 DOCKER_TAG := juampe/base-cabal
-CABAL_VERSION := 3.4.0.0
-BUILDX_CACHE := --cache-from type=local,mode=max,src=$(HOME)/buildx-cache --cache-to type=local,mode=max,dest=$(HOME)/buildx-cache
+UBUNTU := ubuntu:impish
+CABAL_VERSION := 3.6.0.0
+GHC_VERSION := 8.10.4
+BUILDAH_CACHE := -v $(HOME)/.cabal:/root/.cabal -v $(PWD)/repo:/repo
+JOBS := -j1
 
-all: archs
-	
-archs: amd64 arm64 riscv64
+all: $(addprefix build-, $(ARCHS))
 
-cache:
-	mkdir -p $(HOME)/buildx-cache 2>/dev/null
+archs: $(addprefix build-, $(ARCHS))
 
-%64: cache
-	$(eval CNAME := $(DOCKER_TAG):$(CABAL_VERSION)-$@)
-	docker buildx build $(BUILDX_CACHE) --platform linux/$@ --build-arg CABAL_VERSION=$(CABAL_VERSION) -t $(CNAME) --push .
-	docker run --rm $(CNAME) bash -c 'cat /cabal/_build/artifacts/cabal-install*.tar.xz' > repo/cabal-install-$(CABAL_VERSION)-$@-ubuntu-21.04-bootstrapped.tar.xz
+qemu:
+	docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
 
-
-
-
-
+build-%64:
+	$(eval ARCH := $(subst build-,,$@))
+	$(eval ARCH_TAG := $(DOCKER_TAG):$(CABAL_VERSION)-$(ARCH))
+	buildah bud $(BUILDAH_CACHE) --format docker --layers --platform linux/$(ARCH) --build-arg UBUNTU=$(UBUNTU) --build-arg TARGETARCH=$(ARCH) --build-arg CABAL_VERSION=$(CABAL_VERSION) --build-arg GHC_VERSION=$(GHC_VERSION) -t $(ARCH_TAG) -f Dockerfile .
